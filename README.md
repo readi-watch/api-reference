@@ -4,7 +4,7 @@ The ReaDI-Watch API is a REST based interface centered around JSON-encoded reque
 
 A dedicated test/integration environment is not currently available for the ReaDI-Watch API. If needed, please contact your Customer Success contact to set up a dedicated Account for sandboxed API testing.
 
-Full API Reference[https://app.readi-watch.com/api-docs/reference]
+[Full API Reference](https://app.readi-watch.com/api-docs/reference)
 
 ## Authentication
 
@@ -12,11 +12,11 @@ The ReaDI-Watch API uses Bearer Tokens to authenticate requests.
 
 You can generate an API token for your account by visiting the Admin portal, which can be accessed by clicking on the profile picture in the top right corner and clicking Admin. Only Account Administrators have access to this page. Then, open the Integration menu and generate an API token.
 
-IMAGE GOES HERE
+![image](/api-reference/images/admin-get-token.png)
 
 Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.
 
-## Errors 
+## Errors
 
 ReaDI-Watch uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the `2xx` range indicate success while codes in the `4xx` range indicate an error that failed given the information provided. Codes in the `5xx` range indicate an error with ReaDI-Watch’s servers - these are rare.
 
@@ -53,11 +53,11 @@ ReaDI-Watch considers the following to be backwards-compatible changes which don
 - Changing the order of properties in existing API responses
 - Changing the length or format of strings, object IDs, and error messages
 
-In the future, ReaDI-Watch may introduce conventions for introducing breaking API changes; such a convention will itself be backwards compatible. 
+In the future, ReaDI-Watch may introduce conventions for introducing breaking API changes; such a convention will itself be backwards compatible.
 
 ## Pagination
 
-If pagination is applicable for an API request (i.e. it returns a list of things), you can manipulate URL parameters `offset` and `count` to return the desired results. In these cases, a pagination object will be returned in the response indicating the offset used in the current API call, the total number of applicable results you could retrieve, and a URL suggestion to use for the next API call. 
+If pagination is applicable for an API request (i.e. it returns a list of things), you can manipulate URL parameters `offset` and `count` to return the desired results. In these cases, a pagination object will be returned in the response indicating the offset used in the current API call, the total number of applicable results you could retrieve, and a URL suggestion to use for the next API call.
 
 ```json
    "pagination": {
@@ -66,4 +66,3 @@ If pagination is applicable for an API request (i.e. it returns a list of things
        "next": "https://app.readi-watch.com/api/1.1/wf/projects?count=5&offset=55"
    }
 ```
-   
