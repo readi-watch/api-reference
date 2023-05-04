@@ -1,0 +1,484 @@
+openapi: 3.0.3
+info:
+  title: readi-watch
+  description: Interact with the ReaDI-Watch platform programatically.
+  version: 1.0.0
+  contact:
+    name: ReaDI-Watch
+    email: support@readi-watch.com
+    url: https://readi-watch.com
+  termsOfService: https://readi-watch.com/legal
+paths:
+  /create_timelog:
+    post:
+      description: Creates a new Timelog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/timelogEdit'
+      tags:
+        - Timelogging
+      responses:
+        '200':
+          description: Timelog Created
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/timelog'
+        '401':
+          description: Unauthorized
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/401'
+        '404':
+          description: Not Found
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/404'
+  /update_timelog:
+    post:
+      description: Updates an existing Timelog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/timelogEdit'
+      tags:
+        - Timelogging
+      responses:
+        '200':
+          description: Timelog Updated
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/timelog'
+        '401':
+          description: Unauthorized
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/401'
+        '404':
+          description: Not Found
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/404'
+  /projects:
+    get:
+      description: Obtain information about projects.
+      parameters: 
+        - name: projectId
+          in: query
+          description: The unique ID of the project you wish to query. If provided, only one project will be returned.
+          required: false
+          schema: 
+            type: string
+        - name: offset
+          in: query
+          description: The number of projects to skip when returning results
+          required: false
+          schema: 
+            type: number
+        - name: count
+          in: query
+          description: The maximum number of projects to return in the results. Defaults to 100; maximum 100.
+          required: false
+          schema: 
+            type: number
+            maximum: 100
+      tags:
+        - Core Resources
+      responses:
+        '200':
+          description: Project Response
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/project'
+                  pagination:
+                    $ref: '#/components/schemas/pagination'
+        '401':
+          description: Unauthorized
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/401'
+        '404':
+          description: Not Found
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/404'
+  /timelogs:
+    get:
+      description: Obtain information about timelogs.
+      parameters: 
+        - name: timelogId
+          in: query
+          description: The unique ID of the timelog you wish to query. If provided, only one timelog will be returned.
+          required: false
+          schema: 
+            type: string
+        - name: offset
+          in: query
+          description: The number of timelogs to skip when returning results
+          required: false
+          schema: 
+            type: number
+        - name: count
+          in: query
+          description: The maximum number of timelogs to return in the results. Defaults to 100; maximum 100.
+          required: false
+          schema: 
+            type: number
+            maximum: 100
+        - name: startDate
+          in: query
+          description: The first date to return timelogs for, inclusive. Formatted YYYY-MM-DD
+          required: false
+          schema: 
+            type: string
+        - name: endDate
+          in: query
+          description: The last date to return timelogs for, inclusive. Formatted YYYY-MM-DD
+          required: false
+          schema: 
+            type: string        
+        - name: email
+          in: query
+          description: The email of the user you wish to retrieve timelogs for.
+          required: false
+          schema: 
+            type: string  
+      tags:
+        - Timelogging
+        - Core Resources
+      responses:
+        '200':
+          description: Timelog Response
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/timelog'
+                  pagination:
+                    $ref: '#/components/schemas/pagination'
+        '401':
+          description: Unauthorized
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/401'
+        '404':
+          description: Not Found
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/404'
+  /accounts:
+    get:
+      description: Obtain information about your ReaDI-Watch Account.
+      parameters: 
+        - name: accountId
+          in: query
+          description: The unique ID of the account you wish to query. If provided, only one account will be returned.
+          required: false
+          schema: 
+            type: string
+        - name: offset
+          in: query
+          description: The number of accounts to skip when returning results
+          required: false
+          schema: 
+            type: number
+        - name: count
+          in: query
+          description: The maximum number of accounts to return in the results. Defaults to 100; maximum 100.
+          required: false
+          schema: 
+            type: number
+            maximum: 100
+      tags:
+        - Core Resources
+      responses:
+        '200':
+          description: Account Response
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/account'
+                  pagination:
+                    $ref: '#/components/schemas/pagination'
+        '401':
+          description: Unauthorized
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/401'
+        '404':
+          description: Not Found
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/404'
+
+tags:
+  - name: Core Resources
+    description: Use this to interact with core ReaDI-Watch platform resources
+  - name: Timelogging
+    description: Use these endpoints to manage Timelogs
+security:
+  - Bearer: []
+servers:
+  - url: https://app.readi-watch.com/api/1.1/wf
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+  schemas:
+    timelog:
+      type: object
+      properties:
+        timelogId:
+          type: string
+          description: The Unique Identifier of this timelog, which is a combination of a user and a particular role.
+        project:
+          type: object
+          properties:
+            projectId: 
+              type: string
+              description: The Unique Identifier of this project.
+            projectName:
+              type: string
+              description: The name of the project.
+            _link:
+              type: string
+              description: A API call URL that can be used to access this project directly
+        workPackage:
+          type: object
+          properties:
+            workPackageName:
+              type: string
+              description: The name of the work package.
+            workPackageId:
+              type: string
+              description: The Unique Identifier of this work package.
+        investigation:
+          type: object
+          properties:
+            investigationId:
+              type: string
+              description: The Unique Identifier of this Investigation.
+            investigationName:
+              type: string
+              description: The name of this Investigation.
+        user:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The full name of this user.
+            userId:          
+              type: string
+              description: The Unique Identifier of this user.
+            email:
+              type: string
+              description: The email of this user.
+        time:
+          type: number
+          description: The number of hours this timelog contains
+        date:
+          type: string
+          description: The date of this timelog, formatted YYYY-MM-DD
+        activity:
+          type: string
+          description: The activity description associated with this timelog.
+        createdAt:
+          type: string
+          description: The timestamp of ths timelog creation.
+          format: date
+    timelogEdit:
+      type: object
+      required: 
+      - year
+      - month
+      - day
+      - accountId
+      - activity
+      - projectId
+      - teamMemberId
+      - userId
+      - workPackageId
+      - time
+      properties:
+        year:
+          type: number
+          format: float
+          description: The year of the timelog date.
+        month:
+          type: number
+          format: float
+          description: The month of the timelog date.
+        day:
+          type: number
+          format: float
+          description: The day of the timelog date.
+        accountId:
+          type: string
+          description: The Unique ID of your ReaDI-Watch Account. Use /accounts to retrieve this if necessary.
+        activity:
+          type: string
+          description: A text description of the activities undertaken as part of ths time entry.
+        projectId:
+          type: string
+          description: The Unique ID of the Project that time is being logged for. Use /projects to retrieve this if necessary.
+        teamMemberId:
+          type: string
+          description: The Unique ID of the Team Member that time is being logged for. Use /projects to retrieve this if necessary.
+        userId:
+          type: string
+          description: The Unique ID of the User that time is being logged for. Use /projects to retrieve this if necessary.
+        workPackageId:
+          type: string
+          description: The Unique ID of the Work Package that time is being logged for. Use /projects to retrieve this if necessary.
+        time:
+          type: number
+          format: float
+          description: The time in hours (i.e. 75 minutes is 1.25 hours) being logged.
+    project:
+      type: object
+      properties:
+        projectId: 
+          type: string
+          description: The Unique Identifier of this project.
+        projectName:
+          type: string
+          description: The name of the project.
+        _link:
+          type: string
+          description: A API call URL that can be used to access this project directly
+        workPackages:
+          type: array
+          items: 
+            $ref: '#/components/schemas/workPackage'
+    workPackage:
+      type: object
+      properties:
+        workPackageName:
+          type: string
+          description: The name of the work package.
+        workPackageId:
+          type: string
+          description: The Unique Identifier of this work package.
+        teamMembers:
+          type: array
+          items: 
+            $ref: '#/components/schemas/teamMember'
+    teamMember:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The full name of the team member.
+        teamMemberId:
+          type: string
+          description: The Unique Identifier of this team member, which is a combination of a user and a particular role.
+        userId:          
+          type: string
+          description: The Unique Identifier of this user.
+        teamMemberRole:
+          type: string
+          description: The assogned role of this team member.
+        email:
+          type: string
+          description: The email of this user.
+    account:
+      type: object
+      properties:
+        accountId: 
+          type: string
+          description: The Unique Identifier of this account.
+        accountName:
+          type: string
+          description: The name of the account.
+        _link:
+          type: string
+          description: A API call URL that can be used to access this account directly
+    404: 
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 404
+        body:
+          type: object
+          properties: 
+            status:
+              type: string
+              description: Error description
+            message: 
+              type: string
+              description: Error description
+    401: 
+      type: object
+      properties:
+        error_class:
+          type: string
+          example: "Unauthorized"
+        args:
+          type: object
+          properties: 
+            code::
+              type: string
+              description: Error description
+        message: 
+          type: string
+          description: Error description
+        translation: 
+          type: string
+          description: Display friendly error description
+    pagination:
+      type: object
+      properties:
+        offset:
+          type: number
+          description: The number of records skipped in the response.
+        total:
+          type: number
+          description: The total number of available records.
+        next:
+          type: string
+          description: A URL of the next set of records to be retrieved.
+externalDocs:
+  url: https://app.readi-watch.com/api-docs
+  description: API Documentation & Guides
