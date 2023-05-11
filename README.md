@@ -6,6 +6,12 @@ A dedicated test/integration environment is not currently available for the ReaD
 
 [Full API Reference](https://app.readi-watch.com/api-docs/reference)
 
+## Guides & Use Cases
+
+You can refer to the following guides to assist you in creating your integration:
+
+- [Logging Time](guides/logging-time.md)
+
 ## Authentication
 
 The ReaDI-Watch API uses Bearer Tokens to authenticate requests.
