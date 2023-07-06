@@ -16,33 +16,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/timelogEdit'
+              $ref: "#/components/schemas/timelogEdit"
       tags:
         - Timelogging
       responses:
-        '200':
+        "200":
           description: Timelog Created
           content:
-            'application/json':
+            "application/json":
               schema:
                 type: object
                 properties:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/timelog'
-        '401':
+                      $ref: "#/components/schemas/timelog"
+        "401":
           description: Unauthorized
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/401'
-        '404':
+                $ref: "#/components/schemas/401"
+        "404":
           description: Not Found
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/404'
+                $ref: "#/components/schemas/404"
   /update_timelog:
     post:
       description: Updates an existing Timelog
@@ -50,205 +50,234 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/timelogEdit'
+              $ref: "#/components/schemas/timelogEdit"
       tags:
         - Timelogging
       responses:
-        '200':
+        "200":
           description: Timelog Updated
           content:
-            'application/json':
+            "application/json":
               schema:
                 type: object
                 properties:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/timelog'
-        '401':
+                      $ref: "#/components/schemas/timelog"
+        "401":
           description: Unauthorized
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/401'
-        '404':
+                $ref: "#/components/schemas/401"
+        "404":
           description: Not Found
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/404'
+                $ref: "#/components/schemas/404"
+  /delete_timelog:
+    post:
+      description: Deletes an existing Timelog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/timelogDelete"
+      tags:
+        - Timelogging
+      responses:
+        "200":
+          description: Timelog Deleted
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/genericResult"
+        "401":
+          description: Unauthorized
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/401"
+        "404":
+          description: Not Found
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/404"
   /projects:
     get:
       description: Obtain information about projects.
-      parameters: 
+      parameters:
         - name: projectId
           in: query
           description: The unique ID of the project you wish to query. If provided, only one project will be returned.
           required: false
-          schema: 
+          schema:
             type: string
         - name: offset
           in: query
           description: The number of projects to skip when returning results
           required: false
-          schema: 
+          schema:
             type: number
         - name: count
           in: query
           description: The maximum number of projects to return in the results. Defaults to 100; maximum 100.
           required: false
-          schema: 
+          schema:
             type: number
             maximum: 100
       tags:
         - Core Resources
       responses:
-        '200':
+        "200":
           description: Project Response
           content:
-            'application/json':
+            "application/json":
               schema:
                 type: object
                 properties:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/project'
+                      $ref: "#/components/schemas/project"
                   pagination:
-                    $ref: '#/components/schemas/pagination'
-        '401':
+                    $ref: "#/components/schemas/pagination"
+        "401":
           description: Unauthorized
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/401'
-        '404':
+                $ref: "#/components/schemas/401"
+        "404":
           description: Not Found
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/404'
+                $ref: "#/components/schemas/404"
   /timelogs:
     get:
       description: Obtain information about timelogs.
-      parameters: 
+      parameters:
         - name: timelogId
           in: query
           description: The unique ID of the timelog you wish to query. If provided, only one timelog will be returned.
           required: false
-          schema: 
+          schema:
             type: string
         - name: offset
           in: query
           description: The number of timelogs to skip when returning results
           required: false
-          schema: 
+          schema:
             type: number
         - name: count
           in: query
           description: The maximum number of timelogs to return in the results. Defaults to 100; maximum 100.
           required: false
-          schema: 
+          schema:
             type: number
             maximum: 100
         - name: startDate
           in: query
           description: The first date to return timelogs for, inclusive. Formatted YYYY-MM-DD
           required: false
-          schema: 
+          schema:
             type: string
         - name: endDate
           in: query
           description: The last date to return timelogs for, inclusive. Formatted YYYY-MM-DD
           required: false
-          schema: 
-            type: string        
+          schema:
+            type: string
         - name: email
           in: query
           description: The email of the user you wish to retrieve timelogs for.
           required: false
-          schema: 
-            type: string  
+          schema:
+            type: string
       tags:
         - Timelogging
         - Core Resources
       responses:
-        '200':
+        "200":
           description: Timelog Response
           content:
-            'application/json':
+            "application/json":
               schema:
                 type: object
                 properties:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/timelog'
+                      $ref: "#/components/schemas/timelog"
                   pagination:
-                    $ref: '#/components/schemas/pagination'
-        '401':
+                    $ref: "#/components/schemas/pagination"
+        "401":
           description: Unauthorized
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/401'
-        '404':
+                $ref: "#/components/schemas/401"
+        "404":
           description: Not Found
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/404'
+                $ref: "#/components/schemas/404"
   /accounts:
     get:
       description: Obtain information about your ReaDI-Watch Account.
-      parameters: 
+      parameters:
         - name: accountId
           in: query
           description: The unique ID of the account you wish to query. If provided, only one account will be returned.
           required: false
-          schema: 
+          schema:
             type: string
         - name: offset
           in: query
           description: The number of accounts to skip when returning results
           required: false
-          schema: 
+          schema:
             type: number
         - name: count
           in: query
           description: The maximum number of accounts to return in the results. Defaults to 100; maximum 100.
           required: false
-          schema: 
+          schema:
             type: number
             maximum: 100
       tags:
         - Core Resources
       responses:
-        '200':
+        "200":
           description: Account Response
           content:
-            'application/json':
+            "application/json":
               schema:
                 type: object
                 properties:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/account'
+                      $ref: "#/components/schemas/account"
                   pagination:
-                    $ref: '#/components/schemas/pagination'
-        '401':
+                    $ref: "#/components/schemas/pagination"
+        "401":
           description: Unauthorized
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/401'
-        '404':
+                $ref: "#/components/schemas/401"
+        "404":
           description: Not Found
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/404'
+                $ref: "#/components/schemas/404"
 
 tags:
   - name: Core Resources
@@ -275,7 +304,7 @@ components:
         project:
           type: object
           properties:
-            projectId: 
+            projectId:
               type: string
               description: The Unique Identifier of this project.
             projectName:
@@ -308,7 +337,7 @@ components:
             name:
               type: string
               description: The full name of this user.
-            userId:          
+            userId:
               type: string
               description: The Unique Identifier of this user.
             email:
@@ -327,19 +356,27 @@ components:
           type: string
           description: The timestamp of ths timelog creation.
           format: date
+    timelogDelete:
+      type: object
+      required:
+        - timelog
+      properties:
+        timelog:
+          type: string
+          description: The unique identifier of the timelog to be deleted.
     timelogEdit:
       type: object
-      required: 
-      - year
-      - month
-      - day
-      - accountId
-      - activity
-      - projectId
-      - teamMemberId
-      - userId
-      - workPackageId
-      - time
+      required:
+        - year
+        - month
+        - day
+        - accountId
+        - activity
+        - projectId
+        - teamMemberId
+        - userId
+        - workPackageId
+        - time
       properties:
         year:
           type: number
@@ -378,7 +415,7 @@ components:
     project:
       type: object
       properties:
-        projectId: 
+        projectId:
           type: string
           description: The Unique Identifier of this project.
         projectName:
@@ -389,8 +426,8 @@ components:
           description: A API call URL that can be used to access this project directly
         workPackages:
           type: array
-          items: 
-            $ref: '#/components/schemas/workPackage'
+          items:
+            $ref: "#/components/schemas/workPackage"
     workPackage:
       type: object
       properties:
@@ -402,8 +439,8 @@ components:
           description: The Unique Identifier of this work package.
         teamMembers:
           type: array
-          items: 
-            $ref: '#/components/schemas/teamMember'
+          items:
+            $ref: "#/components/schemas/teamMember"
     teamMember:
       type: object
       properties:
@@ -413,7 +450,7 @@ components:
         teamMemberId:
           type: string
           description: The Unique Identifier of this team member, which is a combination of a user and a particular role.
-        userId:          
+        userId:
           type: string
           description: The Unique Identifier of this user.
         teamMemberRole:
@@ -425,7 +462,7 @@ components:
     account:
       type: object
       properties:
-        accountId: 
+        accountId:
           type: string
           description: The Unique Identifier of this account.
         accountName:
@@ -434,7 +471,7 @@ components:
         _link:
           type: string
           description: A API call URL that can be used to access this account directly
-    404: 
+    404:
       type: object
       properties:
         statusCode:
@@ -442,14 +479,14 @@ components:
           example: 404
         body:
           type: object
-          properties: 
+          properties:
             status:
               type: string
               description: Error description
-            message: 
+            message:
               type: string
               description: Error description
-    401: 
+    401:
       type: object
       properties:
         error_class:
@@ -457,14 +494,14 @@ components:
           example: "Unauthorized"
         args:
           type: object
-          properties: 
+          properties:
             code::
               type: string
               description: Error description
-        message: 
+        message:
           type: string
           description: Error description
-        translation: 
+        translation:
           type: string
           description: Display friendly error description
     pagination:
@@ -479,6 +516,13 @@ components:
         next:
           type: string
           description: A URL of the next set of records to be retrieved.
+    genericResult:
+      type: object
+      properties:
+        status:
+          type: string
+        response:
+          type: object
 externalDocs:
   url: https://app.readi-watch.com/api-docs
   description: API Documentation & Guides
